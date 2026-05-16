@@ -34,7 +34,7 @@ export default function Sidebar({ projects = [], collapsed, setCollapsed }) {
         </div>
         {!collapsed && (
           <span className="text-2xl font-bold text-white tracking-tight">
-            Rubick
+            Task Flow
           </span>
         )}
       </div>
