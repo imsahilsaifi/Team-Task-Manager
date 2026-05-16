@@ -12,16 +12,25 @@ const app = express();
 
 app.set('trust proxy', 1);
 
+const clientUrl = process.env.CLIENT_URL ? process.env.CLIENT_URL.replace(/\/$/, '') : null;
+
 const allowedOrigins = [
   'http://localhost:5173',
-  process.env.CLIENT_URL,
+  clientUrl,
 ].filter(Boolean);
 
 console.log(`CORS origins allowed: ${allowedOrigins.join(', ') || 'none'}`);
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        console.error(`Blocked by CORS: ${origin}`);
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );
