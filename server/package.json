@@ -2,9 +2,9 @@
   "name": "team-task-manager-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "prisma db push && node src/index.js",
     "dev": "nodemon src/index.js",
-    "postinstall": "prisma generate && prisma db push"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^6.0.0",
